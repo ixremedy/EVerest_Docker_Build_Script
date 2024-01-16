@@ -8,6 +8,7 @@ tar zxfv git.tar.gz
 
 cd git-*
 make configure
+
 ./configure --prefix=/usr --with-openssl
 make prefix=/usr all
 make prefix=/usr install

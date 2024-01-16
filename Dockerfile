@@ -1,19 +1,21 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 SHELL ["/bin/bash", "-c"]
-RUN apt update
+
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Etc/UTC
 
-RUN apt-get install -y cmake autoconf build-essential libboost-system-dev \
-libboost-thread-dev libboost-program-options-dev libboost-test-dev \
-libboost-filesystem-dev pkg-config gnutls-bin libcap-dev openssl \
-libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext gcc \
-python3 python3-pip default-jre openssh-client
+COPY update.sh /root
+RUN chmod +x /root/update.sh
+RUN /root/update.sh
 
 COPY build-git.sh /root
 RUN chmod +x /root/build-git.sh
 RUN /root/build-git.sh
+
+RUN git config --global http.version HTTP/1.1
+RUN git config --global http.sslBackend openssl
+RUN git config --global https.sslBackend openssl
 
 COPY create-env.sh /root
 RUN chmod +x /root/create-env.sh
