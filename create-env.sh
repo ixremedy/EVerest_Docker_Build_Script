@@ -15,3 +15,8 @@ export PATH=$PATH:/home/$(whoami)/.local/bin
 
 mkdir -p /home/$(whoami)/everest-dev
 edm init --workspace /home/$(whoami)/everest-dev
+edm init main --workspace /home/$(whoami)/everest-dev
+
+cd /home/$(whoami)/everest-dev/everest-utils/ev-dev-tools
+python3 -m pip install .
+
